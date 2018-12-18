@@ -15,12 +15,27 @@ Detector::Detector(const frame_queue_p &capture_queue, const frame_queue_p &tran
 void Detector::process() {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
+#ifdef DEBUG
+  // 디버깅을 위한 영상 출력
+  // Release 모드에서는 실행되지 않는다.
+  cv::startWindowThread();
+#endif
   while (true) {
     // capture_queue 에서 프레임 읽어오기
     auto origin = this->capture_queue->DequeueFrame();
 
     // 영상처리
+    cv::Mat gray;
 
+    // 1. Color Space 변환 : RGB -> Gray
+    cv::cvtColor(origin, gray, cv::COLOR_BGR2GRAY);
+
+#ifdef DEBUG
+    // 디버깅을 위한 영상 출력
+    // Release 모드에서는 실행되지 않는다.
+    cv::imshow("Debug Windows", gray);
+    if (cv::waitKey(30) >= 0) break;
+#endif
 
 
     // 영상처리 후 transport_queue 에 프레임 저장
