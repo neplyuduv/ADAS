@@ -18,7 +18,7 @@ int main() {
     videoIO.CaptureFrame();
   });
   std::thread img_proc_thread([&] {
-    detector.process();
+    detector.Process();
   });
   std::thread transport_thread([&] {
     videoIO.TransportFrame();
