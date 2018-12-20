@@ -39,9 +39,15 @@ void VideoIO::CaptureFrame() {
   cv::Mat frame;
 
   while (true) {
+#ifdef DEBUG
+    auto tmp = cv::imread("../../src/image.jpg", cv::IMREAD_COLOR);
+    cv::resize(tmp, frame, cv::Size(640, 480), 0, 0);
+#else
     *(this->capture) >> frame;
+#endif
+
     this->capture_queue->EnqueueFrame(frame);
-  }
+  } 
 }
 
 /*
