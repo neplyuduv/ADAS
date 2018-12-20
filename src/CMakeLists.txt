@@ -3,6 +3,7 @@ file(GLOB_RECURSE SOURCES *.cpp *.h)
 add_executable(ADAS ${SOURCES})
 
 # OpenCV
+set(OpenCV_DIR "/home/k/Opensource/installation/OpenCV-master/lib/cmake/opencv4")
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 # Thread
